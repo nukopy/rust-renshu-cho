@@ -13,9 +13,9 @@
 
 ## Environment
 
-- OS: macOS Sonoma 14.4 
+- OS: macOS Sonoma 14.4
 - CPU: Apple M3 Max (arm64, 16 cores)
-- Rust 1.78.0
+- Rust 1.80.1
 
 ```sh
 $ rustup show
@@ -23,5 +23,5 @@ Default host: aarch64-apple-darwin
 rustup home:  /Users/nukopy/.rustup
 
 stable-aarch64-apple-darwin (default)
-rustc 1.78.0 (9b00956e5 2024-04-29)
+rustc 1.80.1 (3f5fd8dd4 2024-08-06)
 ```
