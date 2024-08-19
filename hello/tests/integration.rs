@@ -2,7 +2,7 @@ use assert_cmd::Command;
 
 #[test]
 fn runs() {
-    // テスト項目: hello が
+    // テスト項目: hello コマンドが "Hello, world!" という文字列を出力する
     // given (前提条件):
     let binary_name = "hello";
     let expected_stdout = "Hello, world!\n";
