@@ -13,9 +13,8 @@ fn runs() {
     };
 
     // when (操作):
-    let _res = cmd.output();
-
     // then (期待する結果):
+    // cmd.assert() の中でコマンドを実行している
     cmd.assert().success().stdout(expected_stdout);
 }
 
@@ -31,9 +30,8 @@ fn true_exits_with_exit_code_0() {
     };
 
     // when (操作):
-    let _res = cmd.output();
-
     // then (期待する結果):
+    // cmd.assert() の中でコマンドを実行している
     cmd.assert().success();
 }
 
@@ -49,8 +47,7 @@ fn false_exits_with_exit_code_1() {
     };
 
     // when (操作):
-    let _res = cmd.output();
-
     // then (期待する結果):
+    // cmd.assert() の中でコマンドを実行している
     cmd.assert().failure();
 }
