@@ -75,7 +75,7 @@ fn compare_bash_echo_output_hello2() -> TestResult {
 }
 
 #[test]
-fn compare_bash_echo_output_hello1_newline() -> TestResult {
+fn compare_bash_echo_output_hello1_no_newline() -> TestResult {
     // テスト項目: echo コマンドが、bash の echo コマンドと同じ出力を行う 3
     // given (前提条件):
     // read file of output bash echo command
@@ -92,7 +92,7 @@ fn compare_bash_echo_output_hello1_newline() -> TestResult {
 }
 
 #[test]
-fn compare_bash_echo_output_hello2_newline() -> TestResult {
+fn compare_bash_echo_output_hello2_no_newline() -> TestResult {
     // テスト項目: echo コマンドが、bash の echo コマンドと同じ出力を行う 4
     // given (前提条件):
     // read file of output bash echo command
