@@ -1,11 +1,20 @@
 pub mod args;
+pub mod fs;
 
 use std::error::Error;
 
-type MyResult<T> = Result<T, Box<dyn Error>>;
-
-pub fn run(args: args::Args) -> MyResult<()> {
-    println!("args: {:#?}", args);
+pub fn run(args: args::Args) -> Result<(), Box<dyn Error>> {
+    for file in args.files {
+        let reader = fs::open(&file);
+        match reader {
+            Ok(_reader) => {
+                println!("Opened: {}", file);
+            }
+            Err(e) => {
+                eprintln!("Failed to open {}: {}", file, e)
+            }
+        }
+    }
 
     Ok(())
 }
