@@ -76,7 +76,6 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         # os: [ubuntu-latest, macOS-latest, windows-latest]
-        rust: ["${{ env.RUST_VERSION }}"]
         # rust: [stable, nightly]
     steps:
       - name: Checkout
@@ -86,7 +85,7 @@ jobs:
       - name: Setup Rust toolchains
         uses: dtolnay/rust-toolchain@stable
         with:
-          toolchain: ${{ matrix.rust }}
+          toolchain: ${{ env.RUST_VERSION }}
       - name: Cache
         uses: Swatinem/rust-cache@v2
       - name: Run tests
