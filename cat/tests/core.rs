@@ -34,6 +34,10 @@ fn bustle_stdin_b() -> Result<()> {
     )
 }
 
+// --------------------------------------------------
+// Test cases for files input
+// --------------------------------------------------
+
 #[test]
 fn empty() -> Result<()> {
     run(&[EMPTY], "tests/expected/empty.txt.out")
