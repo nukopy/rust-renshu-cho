@@ -27,7 +27,7 @@ pub fn gen_not_exist_file(dirname: &str) -> String {
 
 pub fn gen_chmod_000_file(dirname: &str) -> Result<String> {
     // create file with 0o000 permission
-    let filename = format!("{}/{}", dirname, "chmod_000_file.txt");
+    let filename = format!("{}/{}", dirname, "tmp.txt");
     fs::write(&filename, "hello")?;
     fs::set_permissions(&filename, fs::Permissions::from_mode(0o000))?;
 
