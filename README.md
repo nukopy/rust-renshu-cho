@@ -33,7 +33,7 @@ rustc 1.80.1 (3f5fd8dd4 2024-08-06)
 https://www.oreilly.co.jp/books/9784814400584/
 
 - [x] 1. イントロダクション
-- [ ] 2. echo コマンド
+- [x] 2. echo コマンド
 - [ ] 3. cat コマンド
 - [ ] 4. head コマンド
 - [ ] 5. wc コマンド
