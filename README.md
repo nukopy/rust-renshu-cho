@@ -1,5 +1,10 @@
 # rust-renshu-cho
 
+[![GitHub Actions workflow badge][github-actions-badge]][github-actions-url]
+
+[github-actions-badge]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml/badge.svg?branch=main
+[github-actions-url]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml?query=branch:main
+
 「Rust の練習帳」（Ken Youens-Clark 著、中山 光樹 訳、2024/01、O'REILLY Japan）の写経リポジトリ
 
 ## Links
