@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    paths-ignore:
+      - ".gitignore"
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - ".gitignore"
+      - "**.md"
+
+env:
+  CARGO_INCREMENTAL: 0
+  CARGO_NET_RETRY: 10
+  RUST_VERSION: 1.80.1
+  RUST_BACKTRACE: short
+  RUSTFLAGS: "-D warnings"
+  RUSTUP_MAX_RETRIES: 10
+
+jobs:
+  format:
+    name: Format [Rustfmt]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Rustfmt
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          components: rustfmt
+      - name: Run format
+        run: cargo fmt --all -- --check
+
+  lint:
+    name: Lint [Clippy]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Clippy
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+          components: clippy
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+      - name: Run lint
+        run: cargo clippy
+
+  # Ensure that the project could be successfully compiled
+  cargo_check:
+    name: Compile
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Setup Rust toolchains
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+      - name: Run cargo check
+        run: cargo check --workspace --locked
+
+  # Run tests on Linux, macOS, and Windows
+  # On both Rust stable and Rust nightly
+  test:
+    name: Test
+    needs: [format, lint, cargo_check]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        # os: [ubuntu-latest, macOS-latest, windows-latest]
+        # rust: [stable, nightly]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      # Install all the required dependencies for testing
+      - name: Setup Rust toolchains
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: ${{ env.RUST_VERSION }}
+      - name: Cache
+        uses: Swatinem/rust-cache@v2
+      - name: Run tests
+        run: cargo test --verbose
