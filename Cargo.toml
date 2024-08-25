@@ -4,5 +4,6 @@ members = [
     "calc",
     "cat",
     "echo",
+    "head",
     "hello",
 ]
