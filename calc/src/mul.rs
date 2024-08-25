@@ -54,4 +54,39 @@ mod tests {
         // let result = super::siblings::mul_private(2, 2);
         // assert_eq!(result, 4);
     }
+
+    #[test]
+    #[ignore = "テスト関数が無視されることを確認する"]
+    fn mul_2_and_2_equals_4_ignored() {
+        // 親モジュールの非公開関数は呼び出すことができる
+        let result = mul(2, 2);
+        assert_eq!(result, 4);
+    }
 }
+
+/* #[ignore] 属性の付与でテスト関数が無視されることを確認する
+
+```sh
+$ cargo test
+   Compiling calc v0.1.0 (/Users/nukopy/Projects/Rust/rust-renshu-cho/calc)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 0.12s
+     Running unittests src/lib.rs (target/debug/deps/calc-1543b18eb8606239)
+
+running 6 tests
+test mul::tests::mul_2_and_2_equals_4_ignored ... ignored, テスト関数が無視されることを確認する
+test add::tests::add_2_and_2_equals_4 ... ok
+test mul::tests::mul_2_and_2_equals_4_siblings_private ... ok
+test mul::tests::mul_2_and_2_equals_4 ... ok
+test mul::tests::mul_2_and_2_equals_4_siblings_public ... ok
+test sub::tests::sub_2_and_2_equals_0 ... ok
+
+test result: ok. 5 passed; 0 failed; 1 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+   Doc-tests calc
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+```
+
+ */
