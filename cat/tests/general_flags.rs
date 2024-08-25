@@ -1,10 +1,10 @@
-mod common;
+mod utils;
 
 use anyhow::Result;
 use assert_cmd::Command;
 use predicates::prelude::*;
 
-use common::constants::BINARY_NAME;
+use utils::constants::BINARY_NAME;
 
 // --------------------------------------------------
 // Test cases for general CLI flags
