@@ -39,7 +39,7 @@ https://www.oreilly.co.jp/books/9784814400584/
 
 - [x] 1. イントロダクション
 - [x] 2. echo コマンド
-- [ ] 3. cat コマンド
+- [x] 3. cat コマンド
 - [ ] 4. head コマンド
 - [ ] 5. wc コマンド
 - [ ] 6. uniq コマンド
