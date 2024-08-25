@@ -11,7 +11,7 @@ use clap::Parser;
 pub struct Args {
     /// Files to concatenate and print
     #[clap(
-        value_name = "FILES",
+        value_name = "FILE",
         help = "Files to concatename and print",
         required = false,
         default_value = "-"
