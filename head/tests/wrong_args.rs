@@ -5,8 +5,7 @@ use assert_cmd::Command;
 use predicates::prelude::*;
 
 use utils::{
-    constants::{BINARY_NAME, EMPTY, ONE},
-    file::gen_bad_file,
+    constants::{BINARY_NAME, EMPTY},
     random::random_string,
 };
 
@@ -44,6 +43,32 @@ fn dies_bad_lines() -> Result<()> {
 }
 
 #[test]
+fn dies_no_args_bytes() -> Result<()> {
+    let expected = "error: a value is required for \
+        '--bytes <BYTES>' but none was supplied";
+    Command::cargo_bin(BINARY_NAME)?
+        .args(["-c"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains(expected));
+
+    Ok(())
+}
+
+#[test]
+fn dies_no_args_lines() -> Result<()> {
+    let expected = "error: a value is required for \
+        '--lines <LINES>' but none was supplied";
+    Command::cargo_bin(BINARY_NAME)?
+        .args(["-n"])
+        .assert()
+        .failure()
+        .stderr(predicate::str::contains(expected));
+
+    Ok(())
+}
+
+#[test]
 fn dies_bytes_and_lines() -> Result<()> {
     let msg = "the argument '--lines <LINES>' cannot be \
                used with '--bytes <BYTES>'";
@@ -53,18 +78,6 @@ fn dies_bytes_and_lines() -> Result<()> {
         .assert()
         .failure()
         .stderr(predicate::str::contains(msg));
-
-    Ok(())
-}
-
-#[test]
-fn skips_bad_file() -> Result<()> {
-    let bad = gen_bad_file();
-    let expected = format!("{bad}: .* [(]os error 2[)]");
-    Command::cargo_bin(BINARY_NAME)?
-        .args([EMPTY, &bad, ONE])
-        .assert()
-        .stderr(predicate::str::is_match(expected)?);
 
     Ok(())
 }
