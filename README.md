@@ -31,6 +31,22 @@ stable-aarch64-apple-darwin (default)
 rustc 1.80.1 (3f5fd8dd4 2024-08-06)
 ```
 
+## Commands
+
+### Test
+
+- Run all tests in all members in workspace
+
+```sh
+cargo test
+```
+
+- Run all tests in a specific member
+
+```sh
+cargo test -p <member>
+```
+
 ## 進捗
 
 ### Rust の練習帳
