@@ -1,5 +1,6 @@
 use crate::args::Args;
 
+#[derive(Debug, Clone, Copy)]
 pub struct Flags {
     pub lines: bool,
     pub words: bool,
@@ -15,7 +16,6 @@ impl Flags {
     /// - 1 ~ 2 つのフラグが指定された場合、他のフラグを false にする
     /// - 3 つのフラグが指定された場合はそのまま
     /// - `-c` と `-m` は同時に true にならないので、4 つのフラグが同時に true になることはない
-
     pub fn resolve_flag_conflicts(args: &Args) -> Self {
         let mut flags = Flags {
             lines: args.lines,
