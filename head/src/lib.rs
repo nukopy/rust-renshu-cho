@@ -34,7 +34,6 @@ fn head_bytes(mut r: Box<dyn BufRead>, bytes: usize) -> Result<(), Box<dyn std::
 fn head_lines(mut r: Box<dyn BufRead>, lines: usize) -> Result<(), Box<dyn std::error::Error>> {
     let mut line = String::new();
     for i in 0..lines {
-        line.clear();
         // 元の改行文字（LF or CRLF）を保持しつつ各行を標準出力に出力する
         match r.read_line(&mut line) {
             Ok(0) => {
@@ -52,7 +51,9 @@ fn head_lines(mut r: Box<dyn BufRead>, lines: usize) -> Result<(), Box<dyn std::
                 )));
             }
         }
+        line.clear();
 
+        // 指定行数に達したら break
         if i + 1 == lines {
             break;
         }
@@ -92,17 +93,12 @@ fn head_file(args: Args, filename: &str) -> Result<(), Box<dyn std::error::Error
 fn head_files(args: Args) -> Result<(), Box<dyn std::error::Error>> {
     for (i, filename) in args.files.iter().enumerate() {
         // ファイルが複数指定された場合の header
-        if args.files.len() > 2 {
-            println!("==> {} <==", filename);
+        if args.files.len() > 1 {
+            // 最初に出力されるファイル以外のファイルは header 前に改行を行い、出力を見やすくする
+            println!("{}==> {} <==", if i > 0 { "\n" } else { "" }, filename);
         }
 
         head_file(args.clone(), filename)?;
-
-        // ファイルが複数指定された場合の footer
-        // 最後のファイルの出力のときは footer は必要ない
-        if i != args.files.len() - 1 && args.files.len() > 2 {
-            println!();
-        }
     }
 
     Ok(())
