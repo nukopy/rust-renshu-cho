@@ -1,7 +1,7 @@
 pub mod args;
 pub mod fs;
 
-use std::error::Error;
+use std::io::BufRead;
 
 use args::Args;
 use fs::open;
@@ -19,18 +19,96 @@ fn print_args(args: Args) {
     println!("Type of args.bytes: {}", type_of(&args.bytes));
 }
 
-pub fn run(args: Args) -> Result<(), Box<dyn Error>> {
-    // print_args(args);
-    for filename in args.files {
-        match open(&filename) {
-            Ok(b) => {
-                println!("Opened {}", filename);
+fn head_bytes(mut r: Box<dyn BufRead>, bytes: usize) -> Result<(), Box<dyn std::error::Error>> {
+    let mut buf = vec![0u8; bytes];
+    let bytes_read = r.read(&mut buf)?;
+    buf.truncate(bytes_read);
+
+    // 無効な UTF8 文字列まで出力したいため、String::from_utf8_lossy を使用している
+    let output = String::from_utf8_lossy(&buf);
+    print!("{}", output);
+
+    Ok(())
+}
+
+fn head_lines(mut r: Box<dyn BufRead>, lines: usize) -> Result<(), Box<dyn std::error::Error>> {
+    let mut line = String::new();
+    for i in 0..lines {
+        line.clear();
+        // 元の改行文字（LF or CRLF）を保持しつつ各行を標準出力に出力する
+        match r.read_line(&mut line) {
+            Ok(0) => {
+                // EOF
+                break;
+            }
+            Ok(_) => {
+                print!("{}", line);
             }
             Err(e) => {
-                eprintln!("Error occurred on opening file {}: {}", filename, e);
+                let msg = format!("Error occurred on read line: {}", e);
+                return Err(Box::new(std::io::Error::new(
+                    std::io::ErrorKind::Other,
+                    msg,
+                )));
             }
+        }
+
+        if i + 1 == lines {
+            break;
         }
     }
 
     Ok(())
+}
+
+fn head_file(args: Args, filename: &str) -> Result<(), Box<dyn std::error::Error>> {
+    match open(filename) {
+        Ok(r) => {
+            if let Some(bytes) = args.bytes {
+                // head -c
+                if let Err(e) = head_bytes(r, bytes) {
+                    eprintln!("Error occurred in head_bytes: {}", e);
+                }
+            } else {
+                // head -n
+
+                if let Err(e) = head_lines(r, args.lines) {
+                    eprintln!("Error occurred in head_lines: {}", e);
+                }
+            }
+        }
+        Err(e) => {
+            let msg = format!("Error occurred on opening file {}: {}", filename, e);
+            return Err(Box::new(std::io::Error::new(
+                std::io::ErrorKind::Other,
+                msg,
+            )));
+        }
+    }
+
+    Ok(())
+}
+
+fn head_files(args: Args) -> Result<(), Box<dyn std::error::Error>> {
+    for (i, filename) in args.files.iter().enumerate() {
+        // ファイルが複数指定された場合の header
+        if args.files.len() > 2 {
+            println!("==> {} <==", filename);
+        }
+
+        head_file(args.clone(), filename)?;
+
+        // ファイルが複数指定された場合の footer
+        // 最後のファイルの出力のときは footer は必要ない
+        if i != args.files.len() - 1 && args.files.len() > 2 {
+            println!();
+        }
+    }
+
+    Ok(())
+}
+
+pub fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
+    // print_args(args);
+    head_files(args)
 }

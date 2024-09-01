@@ -1,6 +1,6 @@
 use clap::Parser;
 
-#[derive(Debug, Parser)]
+#[derive(Debug, Clone, Parser)]
 #[clap(
     name = env!("CARGO_PKG_NAME"),
     version = env!("CARGO_PKG_VERSION"),
