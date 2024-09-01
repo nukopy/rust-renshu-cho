@@ -9,25 +9,45 @@ use clap::Parser;
     arg_required_else_help = false, // 指定された引数がない場合は default の値を使う
 )]
 pub struct Args {
-    /// head target files
-    #[clap(value_name = "FILE", help = "Files to read", default_value = "-")]
+    /// wc target files
+    #[clap(value_name = "FILE", help = "Files to read on wc", default_value = "-")]
     pub files: Vec<String>,
 
-    /// head -n option
-    #[clap(
-        short = 'n',
-        long = "lines",
-        conflicts_with = "bytes", // -n と -c は同時に指定できないようにする
-        help = "Print the first K lines instead of the first 10",
-        default_value = "10"
-    )]
-    pub lines: usize,
-
-    /// head -c option
+    /// wc -c option
     #[clap(
         short = 'c',
         long = "bytes",
-        help = "Print the first K bytes of each file"
+        conflicts_with = "chars", // -c と -m は同時に指定できないようにする
+        help = "Print the number of bytes in each input file",
+        default_value_t = true
     )]
-    pub bytes: Option<usize>,
+    pub bytes: bool,
+
+    /// wc -l
+    #[clap(
+        short = 'l',
+        long = "lines",
+        help = "Print the number of lines in each input file",
+        default_value_t = true
+    )]
+    pub lines: bool,
+
+    /// wc -w
+    #[clap(
+        short = 'w',
+        long = "words",
+        // conflicts_with = "bytes", // -n と -c は同時に指定できないようにする
+        help = "Print the number of lines in each input file",
+        default_value_t = true
+    )]
+    pub words: bool,
+
+    /// wc -m
+    #[clap(
+        short = 'm',
+        long = "chars",
+        help = "Print the number of characters in each input file",
+        default_value_t = false
+    )]
+    pub chars: bool,
 }
