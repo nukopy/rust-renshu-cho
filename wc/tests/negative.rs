@@ -4,7 +4,6 @@ use predicates::prelude::*;
 
 use test_util::{constants::wc::BINARY_NAME, file::gen_bad_file};
 
-// --------------------------------------------------
 #[test]
 fn dies_chars_and_bytes() -> Result<()> {
     Command::cargo_bin(BINARY_NAME)?
@@ -17,7 +16,6 @@ fn dies_chars_and_bytes() -> Result<()> {
     Ok(())
 }
 
-// --------------------------------------------------
 #[test]
 fn skips_bad_file() -> Result<()> {
     let bad = gen_bad_file();
