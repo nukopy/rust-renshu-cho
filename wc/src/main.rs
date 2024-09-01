@@ -1,3 +1,14 @@
+use clap::Parser;
+
+use wc::{args, run};
+
 fn main() {
-    println!("Hello, world!");
+    // parse command-line arguments
+    let args = args::Args::parse();
+
+    // run
+    if let Err(e) = run(args) {
+        eprintln!("Error: {}", e);
+        std::process::exit(1);
+    }
 }
