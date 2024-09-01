@@ -1,8 +1,8 @@
-use std::io::BufRead;
+use std::io::{BufRead, Read};
 
 use crate::flags::Flags;
 
-type Count = i32;
+type Count = u64;
 
 #[derive(Debug, Clone)]
 pub struct Counter {
@@ -27,47 +27,52 @@ impl Counter {
     }
 
     pub fn count<R: BufRead>(&mut self, r: R) -> Result<(), Box<dyn std::error::Error>> {
+        let mut buf = String::new();
+        let mut reader = r.take(usize::MAX as u64);
+        reader.read_to_string(&mut buf)?;
+
         if self.flags.lines {
-            let cnt = self.count_lines(r)?;
-            self.lines = cnt;
+            let lines = Self::count_lines(buf.clone());
+            self.lines = lines;
         }
-        /*
         if self.flags.words {
-            self.count_words(&r)?;
+            let words = Self::count_words(buf.clone());
+            self.words = words;
         }
         if self.flags.bytes {
-            self.count_bytes(&r)?;
+            let bytes = Self::count_bytes(buf.clone());
+            self.bytes = bytes;
         }
         if self.flags.chars {
-            self.count_chars(&r)?;
+            let chars = Self::count_chars(buf.clone());
+            self.chars = chars;
         }
-        */
 
         Ok(())
     }
 
-    fn count_lines<R: BufRead>(&mut self, r: R) -> Result<Count, Box<dyn std::error::Error>> {
-        let mut count = 0;
-        for result in r.lines() {
-            result?; // エラーチェック
-            count += 1;
-        }
-
-        Ok(count)
+    fn count_lines(buf: String) -> Count {
+        let count = buf.lines().count() as Count;
+        count
     }
 
-    /*
-    fn count_words(&mut self, r: &Box<dyn BufRead>) -> Result<i32, Box<dyn std::error::Error>> {
-        Ok(())
+    fn count_words(buf: String) -> Count {
+        let count = buf.split_whitespace().count() as Count;
+        count
     }
 
-    fn count_bytes(&mut self, r: &Box<dyn BufRead>) -> Result<(), Box<dyn std::error::Error>> {}
+    fn count_bytes(buf: String) -> Count {
+        buf.len() as Count
+    }
 
-    fn count_chars(&mut self, r: &Box<dyn BufRead>) -> Result<(), Box<dyn std::error::Error>> {}
-    */
+    fn count_chars(buf: String) -> Count {
+        let count = buf.chars().count() as Count;
+        count
+    }
 }
 
 pub struct Counters {
+    pub flags: Flags,
     pub counters: Vec<Counter>,
     pub total_lines: Count,
     pub total_words: Count,
@@ -76,8 +81,9 @@ pub struct Counters {
 }
 
 impl Counters {
-    pub fn new(counters: Vec<Counter>) -> Self {
+    pub fn new(flags: Flags, counters: Vec<Counter>) -> Self {
         Counters {
+            flags,
             counters,
             total_lines: 0,
             total_words: 0,

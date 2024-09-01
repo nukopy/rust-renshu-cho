@@ -34,7 +34,7 @@ pub fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
     }
 
     // トータルのカウント
-    let mut counters = Counters::new(counter_list);
+    let mut counters = Counters::new(flags, counter_list);
     counters.count_total();
 
     // 出力
