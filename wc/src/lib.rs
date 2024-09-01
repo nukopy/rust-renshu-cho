@@ -1,6 +1,8 @@
 pub mod args;
+pub mod fs;
 
 use args::Args;
+use fs::open;
 
 #[allow(dead_code)]
 fn type_of<T>(_: &T) -> String {
@@ -16,7 +18,14 @@ fn print_args(args: Args) {
 }
 
 pub fn run(args: Args) -> Result<(), Box<dyn std::error::Error>> {
-    print_args(args);
+    for filename in args.files.into_iter() {
+        match open(&filename) {
+            Ok(_r) => {}
+            Err(e) => {
+                eprintln!("{}: {}", &filename, e);
+            }
+        }
+    }
 
     Ok(())
 }
