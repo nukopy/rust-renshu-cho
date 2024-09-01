@@ -6,5 +6,9 @@ members = [
     "echo",
     "head",
     "hello",
+    "tests/utils",
     "wc",
 ]
+
+[workspace.dependencies]
+test_util = { package = "utils", path = "tests/utils" }
