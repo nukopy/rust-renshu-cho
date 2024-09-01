@@ -28,7 +28,7 @@ impl Counter {
 
     pub fn count<R: BufRead>(&mut self, r: R) -> Result<(), Box<dyn std::error::Error>> {
         let mut buf = String::new();
-        let mut reader = r.take(usize::MAX as u64);
+        let mut reader = r.take(usize::MAX as u64); // BufRead から指定したバイト数を read する reader を生成
         reader.read_to_string(&mut buf)?;
 
         if self.flags.lines {
