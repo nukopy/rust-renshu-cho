@@ -18,7 +18,7 @@ pub struct Args {
         short = 'l',
         long = "lines",
         help = "Print the number of lines in each input file",
-        default_value_t = true
+        default_value_t = false
     )]
     pub lines: bool,
 
@@ -27,7 +27,7 @@ pub struct Args {
         short = 'w',
         long = "words",
         help = "Print the number of words in each input file",
-        default_value_t = true
+        default_value_t = false
     )]
     pub words: bool,
 
@@ -37,7 +37,7 @@ pub struct Args {
         long = "bytes",
         conflicts_with = "chars", // -c と -m は同時に指定できないようにする
         help = "Print the number of bytes in each input file",
-        default_value_t = true
+        default_value_t = false
     )]
     pub bytes: bool,
 
