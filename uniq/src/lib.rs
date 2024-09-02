@@ -1,10 +1,10 @@
 pub mod args;
-pub mod fs;
+pub mod io;
 
 use std::io::{BufRead, Write};
 
 use args::Args;
-use fs::{open_read, open_write};
+use io::{open_read, open_write};
 
 mod debug;
 #[allow(unused_imports)]
