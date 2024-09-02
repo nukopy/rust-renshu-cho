@@ -58,7 +58,7 @@ https://www.oreilly.co.jp/books/9784814400584/
 - [x] 3. cat コマンド
 - [x] 4. head コマンド
 - [x] 5. wc コマンド
-- [ ] 6. uniq コマンド
+- [x] 6. uniq コマンド
 - [ ] 7. find コマンド
 - [ ] 8. cut コマンド
 - [ ] 9. grep コマンド

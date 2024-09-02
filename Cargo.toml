@@ -7,6 +7,7 @@ members = [
     "head",
     "hello",
     "tests/utils",
+    "uniq",
     "wc",
 ]
 
