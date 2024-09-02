@@ -31,6 +31,22 @@ stable-aarch64-apple-darwin (default)
 rustc 1.80.1 (3f5fd8dd4 2024-08-06)
 ```
 
+## Commands
+
+### Test
+
+- Run all tests in all members in workspace
+
+```sh
+cargo test
+```
+
+- Run all tests in a specific member
+
+```sh
+cargo test -p <member>
+```
+
 ## 進捗
 
 ### Rust の練習帳
@@ -41,7 +57,7 @@ https://www.oreilly.co.jp/books/9784814400584/
 - [x] 2. echo コマンド
 - [x] 3. cat コマンド
 - [x] 4. head コマンド
-- [ ] 5. wc コマンド
+- [x] 5. wc コマンド
 - [ ] 6. uniq コマンド
 - [ ] 7. find コマンド
 - [ ] 8. cut コマンド
