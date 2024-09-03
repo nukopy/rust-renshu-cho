@@ -71,3 +71,7 @@ pub mod uniq {
         out_count: "tests/expected/t6.txt.c.out",
     };
 }
+
+pub mod find {
+    pub const BINARY_NAME: &str = "find";
+}
