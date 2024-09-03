@@ -1,20 +1,14 @@
 # rust-renshu-cho
 
+[![MIT license badge][mit-badge]][mit-url]
 [![GitHub Actions workflow badge][github-actions-badge]][github-actions-url]
 
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[mit-url]: https://github.com/nukopy/rust-renshu-cho/blob/main/LICENSE
 [github-actions-badge]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml/badge.svg?branch=main
 [github-actions-url]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml?query=branch:main
 
 「Rust の練習帳」（Ken Youens-Clark 著、中山 光樹 訳、2024/01、O'REILLY Japan）の写経リポジトリ
-
-## Links
-
-- 書籍
-  - [O'REILLY Japan: Rust の練習帳](https://www.oreilly.co.jp/books/9784814400584/)
-- サンプルコード
-  - [github.com/kyclark/command-line-rust](https://github.com/kyclark/command-line-rust)
-- 正誤表（日本語版のサポートサイト）
-  - [github.com/oreilly-japan/command-line-rust-ja](https://github.com/oreilly-japan/command-line-rust-ja)
 
 ## Environment
 
@@ -47,11 +41,7 @@ cargo test
 cargo test -p <member>
 ```
 
-## 進捗
-
-### Rust の練習帳
-
-https://www.oreilly.co.jp/books/9784814400584/
+## Progress
 
 - [x] 1. イントロダクション
 - [x] 2. echo コマンド
@@ -69,28 +59,19 @@ https://www.oreilly.co.jp/books/9784814400584/
 - [ ] 14. ls コマンド
 - [ ] 付録 A. clap の新しい API
 
-### The Rust Programming Language
+## Links
 
-https://doc.rust-lang.org/book/title-page.html
+- 書籍情報
+  - 書籍リンク
+    - [O'REILLY Japan: Rust の練習帳](https://www.oreilly.co.jp/books/9784814400584/)
+  - サンプルコード
+    - [github.com/kyclark/command-line-rust](https://github.com/kyclark/command-line-rust)
+  - 正誤表（日本語版のサポートサイト）
+    - [github.com/oreilly-japan/command-line-rust-ja](https://github.com/oreilly-japan/command-line-rust-ja)
+- References
+  - [The Rust Programming Language](https://doc.rust-lang.org/book/title-page.html)
+    - 11. [Writing Automated Tests](https://doc.rust-lang.org/book/ch11-00-testing.html)
 
-- [ ] 1. Getting Started
-- [ ] 2. Programming a Guessing Game
-- [ ] 3. Common Programming Concepts
-- [ ] 4. Understanding Ownership
-- [ ] 5. Using Structs to Structure Related Data
-- [ ] 6. Enums and Pattern Matching
-- [ ] 7. Managing Growing Projects with Packages, Crates, and Modules
-- [ ] 8. Common Collections
-- [ ] 9. Error Handling
-- [ ] 10. Generic Types, Traits, and Lifetimes
-- [x] 11. [Writing Automated Tests](https://doc.rust-lang.org/book/ch11-00-testing.html)
-- [ ] 12. An I/O Project: Building a Command Line Program
-- [ ] 13. Functional Language Features: Iterators and Closures
-- [ ] 14. More about Cargo and Crates.io
-- [ ] 15. Smart Pointers
-- [ ] 16. Fearless Concurrency
-- [ ] 17. Object Oriented Programming Features of Rust
-- [ ] 18. Patterns and Matching
-- [ ] 19. Advanced Features
-- [ ] 20. Final Project: Building a Multithreaded Web Server
-- [ ] 21. Appendix
+## License
+
+This project is licensed under the [MIT license](https://github.com/nukopy/rust-renshu-cho/blob/main/LICENSE).

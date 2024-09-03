@@ -136,3 +136,32 @@ pub mod uniq {
         Ok(())
     }
 }
+
+pub mod find {
+    use std::fs;
+
+    use anyhow::Result;
+    use assert_cmd::Command;
+
+    use crate::{constants::find::BINARY_NAME, file::format_file_name};
+
+    pub fn run(args: &[&str], expected_file: &str) -> Result<()> {
+        let file = format_file_name(expected_file);
+        let contents = fs::read_to_string(file.as_ref())?;
+        let mut expected: Vec<&str> = contents.split('\n').filter(|s| !s.is_empty()).collect();
+        expected.sort();
+
+        let cmd = Command::cargo_bin(BINARY_NAME)?
+            .args(args)
+            .assert()
+            .success();
+        let out = cmd.get_output();
+        let stdout = String::from_utf8(out.stdout.clone())?;
+        let mut lines: Vec<&str> = stdout.split('\n').filter(|s| !s.is_empty()).collect();
+        lines.sort();
+
+        assert_eq!(lines, expected);
+
+        Ok(())
+    }
+}
