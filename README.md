@@ -1,7 +1,10 @@
 # rust-renshu-cho
 
+[![MIT license badge][mit-badge]][mit-url]
 [![GitHub Actions workflow badge][github-actions-badge]][github-actions-url]
 
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[mit-url]: https://github.com/nukopy/rust-renshu-cho/blob/main/LICENSE
 [github-actions-badge]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml/badge.svg?branch=main
 [github-actions-url]: https://github.com/nukopy/toy-tcpip/actions/workflows/ci.yml?query=branch:main
 
@@ -69,3 +72,6 @@ cargo test -p <member>
   - [The Rust Programming Language](https://doc.rust-lang.org/book/title-page.html)
     - 11. [Writing Automated Tests](https://doc.rust-lang.org/book/ch11-00-testing.html)
 
+## License
+
+This project is licensed under the [MIT license](https://github.com/nukopy/rust-renshu-cho/blob/main/LICENSE).
